@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeowL Notifier • Premium Roblox Script</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap');
+
+        :root {
+            --bg: #0F0F12;
+            --card: #15151A;
+            --green: #50FF8C;
+            --text: #F0F0F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: rgba(15, 15, 18, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--green);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .meowl-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 3px solid var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(180deg, #0F0F12 0%, #15151A 100%);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 920px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .hero .subtitle {
+            font-size: 1.35rem;
+            color: var(--green);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero .description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin: 30px auto 40px;
+            max-width: 720px;
+        }
+
+        .meowl-big {
+            width: 260px;
+            height: 260px;
+            margin: 30px auto;
+            border-radius: 30px;
+            border: 6px solid var(--green);
+            box-shadow: 0 0 60px rgba(80, 255, 140, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(80, 255, 140, 0.15);
+            color: var(--green);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .section {
+            padding: 100px 5%;
+        }
+
+        .pricing {
+            background: #15151A;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--green);
+            box-shadow: 0 30px 60px rgba(80, 255, 140, 0.25);
+        }
+
+        .price-card.popular {
+            border-color: var(--green);
+            position: relative;
+        }
+
+        .price-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #0F0F12;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 24px;
+            border-radius: 50px;
+        }
+
+        .price {
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--green);
+            margin: 20px 0;
+        }
+
+        .duration {
+            font-size: 1.3rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .buy-btn {
+            background: var(--green);
+            color: #0F0F12;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .buy-btn:hover {
+            background: #80FFAA;
+            transform: scale(1.05);
+        }
+
+        .ltc-only {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-top: 30px;
+        }
+
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #15151A;
+            max-width: 460px;
+            width: 90%;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            border: 3px solid var(--green);
+        }
+
+        .modal-content h2 {
+            color: var(--green);
+            margin-bottom: 20px;
+        }
+
+        .address-box {
+            background: #0F0F12;
+            padding: 18px;
+            border-radius: 16px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            margin: 20px 0;
+            border: 1px solid #50FF8C;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 2px solid var(--green);
+            color: var(--green);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #222;
+            font-size: 0.95rem;
+            color: #777;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            background: #15151A;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .discord-hero {
+            background: #5865F2;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+
+        .discord-hero:hover {
+            background: #4752C4;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://i.imgur.com/VdTYe.png" alt="MeowL" class="meowl-logo">
+            MEOWL NOTIFIER
+        </div>
+        <div class="nav-links">
+            <a href="#pricing-section">Pricing</a>
+            <a href="https://discord.gg/aNywT6gz" target="_blank" class="discord-btn">
+                💬 Join Discord
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="tag">🦉 BEST IN THE GAME 🔥</div>
+            <h1>MEOWL NOTIFIER</h1>
+            <p class="subtitle">The cleanest • most premium • most stylish Roblox notifier ever made 🦉✨</p>
+            
+            <img src="https://i.imgur.com/VdTYe.png" alt="MeowL" class="meowl-big">
+
+            <div class="description">
+                🚀 We are the best good notifier 🔥<br>
+                Real-time logs with perfect sound alerts 🎵<br>
+                Smart distance categories (ANY • 50m • 100m • 500m+) 📍<br>
+                Super clean premium dark UI with green glow 💚<br>
+                Fully draggable + click your cute MeowL to minimize 🦉<br>
+                No lag • No bloat • Pure premium experience 💎<br><br>
+                <strong>Why settle for trash notifiers when you can have MeowL? 😤</strong>
+            </div>
+
+            <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'})" 
+                    style="background: #50FF8C; color: #0F0F12; padding: 18px 55px; font-size: 1.35rem; border-radius: 9999px; border: none; font-weight: 700; cursor: pointer; margin-right: 15px;">
+                BUY NOW 💰
+            </button>
+
+            <a href="https://discord.gg/aNywT6gz" target="_blank" class="discord-hero">
+                💬 Join Our Discord Community
+            </a>
+        </div>
+    </header>
+
+    <!-- FEATURES -->
+    <div class="section">
+        <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 60px; font-family: 'Space Grotesk', sans-serif;">Why Players Love MeowL 🦉</h2>
+        <div class="features">
+            <div class="feature">
+                <h3 style="color: var(--green); font-size: 1.5rem;">🌟 Premium Dark + Green Design</h3>
+                <p style="color: #ccc;">Elegant UI with smooth animations and glowing accents. Looks expensive.</p>
+            </div>
+            <div class="feature">
+                <h3 style="color: var(--green); font-size: 1.5rem;">🖱️ Draggable + MeowL Minimize</h3>
+                <p style="color: #ccc;">Drag the window anywhere. Click the cute MeowL to hide/restore instantly.</p>
+            </div>
+            <div class="feature">
+                <h3 style="color: var(--green); font-size: 1.5rem;">📍 Smart Distance Logs</h3>
+                <p style="color: #ccc;">Logs sorted into ANY • 50m • 100m • 500m+ with custom sound (139235100) 🎵</p>
+            </div>
+            <div class="feature">
+                <h3 style="color: var(--green); font-size: 1.5rem;">⚡ Fast • Clean • Reliable</h3>
+                <p style="color: #ccc;">No useless features. Just the best notifier experience possible.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRICING -->
+    <div id="pricing-section" class="section pricing">
+        <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif;">Choose Your Access 🔥</h2>
+        <p style="text-align: center; color: #aaa; font-size: 1.2rem; margin-bottom: 60px;">Pay once • Use instantly • Litecoin only</p>
+
+        <div class="pricing-grid">
+            <!-- 1 Hour -->
+            <div class="price-card">
+                <h3 style="font-size: 1.6rem;">1 HOUR ACCESS ⏱️</h3>
+                <div class="price">$5</div>
+                <div class="duration">60 minutes of full power</div>
+                <ul style="text-align: left; line-height: 2.1; color: #ddd; margin-bottom: 30px;">
+                    <li>✅ Full draggable premium UI</li>
+                    <li>✅ Cute MeowL minimize button</li>
+                    <li>✅ All distance categories</li>
+                    <li>✅ Sound alerts on every log</li>
+                </ul>
+                <button onclick="buyNow(5)" class="buy-btn">PAY $5 WITH LTC 💸</button>
+                <p class="ltc-only">Litecoin only • Instant delivery</p>
+            </div>
+
+            <!-- 1 Day (POPULAR) -->
+            <div class="price-card popular">
+                <h3 style="font-size: 1.6rem;">1 DAY ACCESS 🔥</h3>
+                <div class="price">$20</div>
+                <div class="duration">24 hours unlimited use</div>
+                <ul style="text-align: left; line-height: 2.1; color: #ddd; margin-bottom: 30px;">
+                    <li>✅ Full draggable premium UI</li>
+                    <li>✅ Cute MeowL minimize button</li>
+                    <li>✅ All distance categories</li>
+                    <li>✅ Sound alerts on every log</li>
+                    <li>✅ Best value • Save $10</li>
+                </ul>
+                <button onclick="buyNow(20)" class="buy-btn">PAY $20 WITH LTC 💸</button>
+                <p class="ltc-only">Litecoin only • Instant delivery</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="modal-content">
+            <h2>🦉 PAY WITH LTC</h2>
+            <p style="margin-bottom: 20px; color: #ddd;">Send the exact amount below.<br>Then join Discord and send proof for instant key delivery! ⚡</p>
+            
+            <div style="margin: 30px 0;">
+                <img id="qrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=LQaLnig2KfEmkNeFSvnH3tq9sJKPKNEHp2" alt="LTC QR">
+            </div>
+
+            <div class="address-box" id="ltcAddress">
+                LQaLnig2KfEmkNeFSvnH3tq9sJKPKNEHp2
+            </div>
+
+            <button onclick="copyAddress()" class="copy-btn">📋 COPY LTC ADDRESS</button>
+
+            <p style="margin-top: 30px; font-size: 0.95rem; color: #888;">
+                Amount: <span id="modalAmount" style="color: var(--green); font-weight: 700;"></span><br>
+                Network: Litecoin (LTC)
+            </p>
+
+            <a href="https://discord.gg/aNywT6gz" target="_blank" 
+               style="display: block; margin: 25px auto 0; background: #5865F2; color: white; padding: 14px 40px; border-radius: 9999px; text-decoration: none; font-weight: 600; width: fit-content;">
+                💬 Join Discord for Instant Key
+            </a>
+
+            <button onclick="closeModal()" style="margin-top: 20px; background: transparent; border: 2px solid #666; color: #aaa; padding: 12px 40px; border-radius: 9999px; cursor: pointer;">
+                CLOSE
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 MeowL Notifier • The Best Good Notifier 🦉💚<br>
+        Payment accepted in Litecoin only • No refunds after delivery<br>
+        <a href="https://discord.gg/aNywT6gz" target="_blank" style="color: var(--green); text-decoration: none;">Join Discord → https://discord.gg/aNywT6gz</a>
+    </footer>
+
+    <script>
+        function buyNow(amount) {
+            document.getElementById('modalAmount').textContent = '$' + amount;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function copyAddress() {
+            const address = "LQaLnig2KfEmkNeFSvnH3tq9sJKPKNEHp2";
+            navigator.clipboard.writeText(address).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ COPIED!';
+                btn.style.background = '#50FF8C';
+                btn.style.color = '#0F0F12';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#50FF8C';
+                }, 2000);
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('paymentModal');
+                if (modal.style.display === 'flex') closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
