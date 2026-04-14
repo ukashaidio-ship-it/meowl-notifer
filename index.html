@@ -1,164 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeowL Notifier • Premium Roblox Script</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meowl Notifier</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #2f2f2f;
+      color: white;
+      text-align: center;
+    }
 
-        :root {
-            --bg: #0F0F12;
-            --card: #15151A;
-            --green: #50FF8C;
-            --text: #F0F0F5;
-        }
+    header {
+      padding: 40px 20px;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            text-align: center;
-        }
+    h1 {
+      font-size: 48px;
+      margin: 0;
+    }
 
-        .navbar {
-            background: rgba(15, 15, 18, 0.95);
-            border-bottom: 2px solid var(--green);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-        }
+    .meme {
+      font-size: 60px;
+      margin: 20px 0;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--green);
-        }
+    .box {
+      background: #3a3a3a;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+    }
 
-        .meowl-logo {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 3px solid var(--green);
-        }
+    button {
+      background: #555;
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-        .hero {
-            padding-top: 100px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+    button:hover {
+      background: #777;
+    }
 
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4.8rem;
-            margin-bottom: 10px;
-        }
+    .ltc {
+      word-break: break-all;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
 
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--green);
-            margin-bottom: 40px;
-        }
-
-        .meowl-big {
-            width: 280px;
-            height: 280px;
-            margin: 30px 0;
-            border: 8px solid var(--green);
-            border-radius: 30px;
-            box-shadow: 0 0 80px rgba(80, 255, 140, 0.5);
-            animation: float 3.5s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
-
-        .description {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            max-width: 780px;
-            margin: 40px auto;
-            color: #ddd;
-        }
-
-        .buy-btn {
-            background: #50FF8C;
-            color: #0F0F12;
-            padding: 18px 60px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            border-radius: 9999px;
-            border: none;
-            cursor: pointer;
-            margin: 20px 10px;
-        }
-
-        .discord-btn {
-            background: #5865F2;
-            color: white;
-            padding: 18px 50px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            border-radius: 9999px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 20px 10px;
-        }
-    </style>
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">
-            <img src="https://i.imgur.com/0QJ0Z8v.png" alt="MeowL" class="meowl-logo"> <!-- Fixed stable link -->
-            MEOWL NOTIFIER
-        </div>
-        <div>
-            <a href="#pricing" style="color:#ddd; margin-right:30px; text-decoration:none;">Pricing</a>
-            <a href="https://discord.gg/aNywT6gz" target="_blank" class="discord-btn">💬 Join Discord</a>
-        </div>
-    </nav>
+  <header>
+    <h1>🐱 Meowl Notifier</h1>
+    <div class="meme">MEOWL 🗣️</div>
+    <p>Simple. Fast. Clean notifier.</p>
+  </header>
 
-    <div class="hero">
-        <h1>MEOWL NOTIFIER</h1>
-        <p class="subtitle">The cleanest • most premium • most stylish Roblox notifier ever made 🦉✨</p>
+  <div class="box">
+    <h2>Buy Access</h2>
+    <p>Price: $5/day</p>
+    <p>Send LTC to this address:</p>
+    <div class="ltc" id="ltcAddress">LQaLnig2KfEmkNeFSvnH3tq9sJKPKNEHp2</div>
+    <br>
+    <button onclick="copyLTC()">Copy Address</button>
+  </div>
 
-        <!-- Fixed Cute MeowL Image -->
-        <img src="https://i.imgur.com/0QJ0Z8v.png" alt="Cute MeowL" class="meowl-big">
+  <footer>
+    <p>After payment, contact support with proof.</p>
+  </footer>
 
-        <div class="description">
-            🚀 <strong>We are the best good notifier</strong> 🔥<br><br>
-            Real-time logs with perfect sound alerts 🎵<br>
-            Smart distance categories (ANY • 50m • 100m • 500m+) 📍<br>
-            Super clean premium dark UI with green glow 💚<br>
-            Fully draggable + click your cute MeowL to minimize 🦉<br>
-            No lag • No bloat • Pure premium experience 💎<br><br>
-            <strong>Why settle for trash notifiers when you can have MeowL? 😤</strong>
-        </div>
-
-        <div>
-            <button onclick="alert('Redirecting to payment... (add your buy link here)')" class="buy-btn">
-                BUY NOW 💰
-            </button>
-            <a href="https://discord.gg/aNywT6gz" target="_blank" class="discord-btn">
-                💬 Join Our Discord Community
-            </a>
-        </div>
-    </div>
+  <script>
+    function copyLTC() {
+      const text = document.getElementById('ltcAddress').innerText;
+      navigator.clipboard.writeText(text);
+      alert('LTC Address Copied!');
+    }
+  </script>
 
 </body>
 </html>
